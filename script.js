@@ -1,5 +1,6 @@
 const form = document.getElementById('registrationForm');
 const successBanner = document.getElementById('successBanner');
+let successTimeoutId = null;
 
 const countryRules = {
   US: { code: '+1', pattern: /^[2-9]\d{9}$/, hint: '10 digits, cannot start with 0 or 1 (e.g. 4155552671)' },
@@ -124,6 +125,10 @@ inputs.countryCode.addEventListener('change', () => {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   successBanner.classList.remove('success-banner--visible');
+  if (successTimeoutId) {
+    clearTimeout(successTimeoutId);
+    successTimeoutId = null;
+  }
 
   const fields = ['fullName', 'fatherName', 'dob', 'address', 'phone'];
   let hasError = false;
@@ -143,4 +148,9 @@ form.addEventListener('submit', (event) => {
   successBanner.classList.add('success-banner--visible');
   form.reset();
   Object.keys(fieldConfig).forEach((key) => fieldConfig[key].classList.remove('form-field--success', 'form-field--error'));
+
+  successTimeoutId = window.setTimeout(() => {
+    successBanner.classList.remove('success-banner--visible');
+    successTimeoutId = null;
+  }, 2000);
 });
