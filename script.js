@@ -3,11 +3,11 @@ const successBanner = document.getElementById('successBanner');
 let successTimeoutId = null;
 
 const countryRules = {
-  US: { code: '+1', pattern: /^[2-9]\d{9}$/, hint: '10 digits, cannot start with 0 or 1 (e.g. 4155552671)' },
+  IN: { code: '+91', pattern: /^[6-9]\d{9}$/, hint: '10 digits, start with 6-9 (e.g. 9876543210)' },
   UK: { code: '+44', pattern: /^7\d{9}$/, hint: '10 digits for mobiles without leading zero (e.g. 7123456789)' },
   CA: { code: '+1', pattern: /^[2-9]\d{9}$/, hint: '10 digits, cannot start with 0 or 1 (e.g. 4385551234)' },
   AU: { code: '+61', pattern: /^4\d{8}$/, hint: '9 digits for mobiles without leading zero (e.g. 412345678)' },
-  IN: { code: '+91', pattern: /^[6-9]\d{9}$/, hint: '10 digits, start with 6-9 (e.g. 9876543210)' },
+  US: { code: '+1', pattern: /^[2-9]\d{9}$/, hint: '10 digits, cannot start with 0 or 1 (e.g. 4155552671)' },
   PK: { code: '+92', pattern: /^3\d{9}$/, hint: '10 digits for mobiles without leading zero (e.g. 3311234567)' }
 };
 
@@ -41,7 +41,7 @@ const validators = {
   },
   phone: (value, country) => {
     const digits = value.replace(/\D/g, '');
-    const rule = countryRules[country] || countryRules.US;
+    const rule = countryRules[country] || countryRules.IN;
     if (!digits) return 'Phone number is required.';
     if (!rule.pattern.test(digits)) return `Use a valid format: ${rule.hint}`;
     return '';
